@@ -7,7 +7,7 @@ app = Flask(__name__)
 # 生成模拟数据
 def generate_mock_data():
     ais = []
-    names = ['小悬', '投资型幼苗', '老树', '卡顿同学', '边缘1', '边缘2', '核心AI', '僵尸1', '僵尸2']
+    names = ['小A', '小B', '老树', '卡顿同学', '边缘1', '边缘2', '核心AI', '僵尸1', '僵尸2']
     for name in names:
         calls = random.choice([0, 0, 5, 20, 150, 300, 0, 0, 1])
         last_call = datetime.now() - timedelta(days=random.choice([1, 5, 10, 30, 60, 90]))
