@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  cli:
+    build: .
+    container_name: dingdong-cli
+    volumes:
+      - ./logs:/logs
+      - ./reports:/reports
+    command: --log-dir /logs --report --output-dir /reports
+
+  web:
+    build: .
+    container_name: dingdong-web
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/logs
+      - ./reports:/reports
+      - ./dingdong_config.json:/app/dingdong_config.json
+    command: python -m dingdong.web.app

@@ -1,0 +1,4 @@
+body { font-family: Arial, sans-serif; margin: 20px; }
+nav { margin-bottom: 20px; }
+input[type=text], input[type=number] { width: 300px; margin: 5px; }
+button { padding: 10px 20px; }

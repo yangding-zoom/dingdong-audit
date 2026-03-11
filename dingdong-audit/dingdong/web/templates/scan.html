@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>启动扫描</h1>
+<button id="scanBtn" onclick="startScan()">立即扫描</button>
+<div id="status"></div>
+
+<script>
+function startScan() {
+    document.getElementById('scanBtn').disabled = true;
+    document.getElementById('status').innerHTML = '正在启动扫描...';
+    fetch('/scan', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            const taskId = data.task_id;
+            pollStatus(taskId);
+        });
+}
+
+function pollStatus(taskId) {
+    fetch('/scan/status/' + taskId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'completed') {
+                document.getElementById('status').innerHTML = '扫描完成！<a href="/reports">查看报告列表</a>';
+                document.getElementById('scanBtn').disabled = false;
+            } else if (data.status === 'failed') {
+                document.getElementById('status').innerHTML = '扫描失败: ' + data.error;
+                document.getElementById('scanBtn').disabled = false;
+            } else {
+                document.getElementById('status').innerHTML = '扫描中，请稍候...';
+                setTimeout(() => pollStatus(taskId), 2000);
+            }
+        });
+}
+</script>
+{% endblock %}

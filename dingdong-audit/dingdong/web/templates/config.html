@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>系统配置</h1>
+{% if saved %}
+<p style="color: green;">配置已保存！</p>
+{% endif %}
+<form method="post">
+    <h2>日志与输出</h2>
+    <label>日志目录路径: <input type="text" name="log_dir" value="{{ config.log_dir }}" size="50"></label><br>
+    <label>报告输出目录: <input type="text" name="output_dir" value="{{ config.output_dir }}" size="50"></label><br>
+    
+    <h2>分类阈值</h2>
+    <label>僵尸无调用天数: <input type="number" name="zombie_days" value="{{ config.thresholds.zombie_days }}"></label><br>
+    <label>边缘调用次数阈值: <input type="number" name="edge_call_threshold" value="{{ config.thresholds.edge_call_threshold }}"></label><br>
+    <label>边缘部门数阈值: <input type="number" name="edge_dept_threshold" value="{{ config.thresholds.edge_dept_threshold }}"></label><br>
+    <label>卡顿响应时间阈值(秒): <input type="number" step="0.1" name="slow_threshold" value="{{ config.thresholds.slow_threshold }}"></label><br>
+    <label>卡顿错误率阈值: <input type="number" step="0.01" name="error_threshold" value="{{ config.thresholds.error_threshold }}"></label><br>
+    <label>核心调用次数阈值: <input type="number" name="core_call_threshold" value="{{ config.thresholds.core_call_threshold }}"></label><br>
+    <label>核心部门数阈值: <input type="number" name="core_dept_threshold" value="{{ config.thresholds.core_dept_threshold }}"></label><br>
+    
+    <button type="submit">保存配置</button>
+</form>
+{% endblock %}

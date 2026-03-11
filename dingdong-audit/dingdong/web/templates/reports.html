@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>历史报告</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>报告名称</th>
+            <th>生成时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for r in reports %}
+        <tr>
+            <td>{{ r.name }}</td>
+            <td>{{ r.time | int | datetimeformat }}</td>
+            <td>
+                <a href="/report/{{ r.path }}" target="_blank">查看</a>
+                {% if r.has_trace %}
+                | <a href="/trace/{{ r.name.replace('.html', '_溯源包') }}">下载溯源包</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
